@@ -1,12 +1,32 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import { NavNodesContext } from "./lib/spatial-navigation/nav-engine";
+
+import { NavEngine } from "./lib/spatial-navigation";
+import { Welcome } from "./pages/Welcome";
+import { Category } from "./pages/Category";
+
 import "./styles.css";
 
-import { Grid } from "./components/Grid/Grid";
+type AppProps = {
+  navEngine: NavEngine;
+};
 
-export default function App() {
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Welcome />
+  },
+  {
+    path: "/category",
+    element: <Category />
+  }
+]);
+
+export default function App({ navEngine }: AppProps) {
   return (
-    <div className="App">
-      <h1>Spatial Navigation Demo</h1>
-      <Grid />
-    </div>
+    <NavNodesContext.Provider value={navEngine}>
+      <RouterProvider router={router} />
+    </NavNodesContext.Provider>
   );
 }

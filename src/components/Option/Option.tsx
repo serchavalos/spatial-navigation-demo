@@ -1,17 +1,22 @@
-import React, { PropsWithChildren, useRef } from "react";
+import { PropsWithChildren } from "react";
+import { Link } from "react-router-dom";
 
 import { useFocusRef } from "../../lib/spatial-navigation";
 
-import "./Option.styles.scss";
+import "./Option.styles.css";
 
 type OptionProps = {} & PropsWithChildren;
 
 export function Option({ children }: OptionProps): JSX.Element {
-  const { ref, isFocused } = useFocusRef();
+  const { setRef, isFocused } = useFocusRef();
 
   return (
-    <span ref={ref} className={`option ${isFocused ? "option--focused" : ""}`}>
+    <Link
+      ref={setRef}
+      className={`option ${isFocused ? "option--focused" : ""}`}
+      to="/category"
+    >
       {children}
-    </span>
+    </Link>
   );
 }

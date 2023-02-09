@@ -2,12 +2,17 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import App from "./App";
+import { NavEngine } from "./lib/spatial-navigation";
 
 const rootElement = document.getElementById("root");
-const root = createRoot(rootElement!);
+if (!rootElement) {
+  throw new Error("missing #root element");
+}
+const root = createRoot(rootElement);
+const navEngine = new NavEngine();
 
 root.render(
   <StrictMode>
-    <App />
+    <App navEngine={navEngine} />
   </StrictMode>
 );

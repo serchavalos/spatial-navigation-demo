@@ -1,17 +1,20 @@
-import React from "react";
-
 import { Option } from "../Option/Option";
+
 import "./Grid.styles.css";
 
-export function Grid(): JSX.Element {
-  const optionLabels = Array.from(Array(9).keys()).map(
+type GridProps = {
+  length?: number;
+};
+
+export function Grid({ length = 9 }: GridProps): JSX.Element {
+  const optionLabels = Array.from(Array(length).keys()).map(
     (_, index) => `option ${index + 1}`
   );
-  console.log(optionLabels);
+
   return (
     <div className="grid">
-      {optionLabels.map((label) => (
-        <Option>{label}</Option>
+      {optionLabels.map((label, index) => (
+        <Option key={`option-${index}`}>{label}</Option>
       ))}
     </div>
   );
