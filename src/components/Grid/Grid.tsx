@@ -7,9 +7,7 @@ type GridProps = {
 };
 
 export function Grid({ length = 9 }: GridProps): JSX.Element {
-  const optionLabels = Array.from(Array(length).keys()).map(
-    (_, index) => `option ${index + 1}`
-  );
+  const optionLabels = new Array(length).fill(null).map((_, index) => index);
 
   return (
     <div className="grid">

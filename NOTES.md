@@ -7,5 +7,5 @@
 
 ## Scenarios
 
-- [ ] I can see the item `option 1` focused after I press the DOWN arrow
-- [ ] I can see the item `option 2` focused after I press the RIGHT arrow
+- [x] I can see the item `option 1` focused after I press the DOWN arrow
+- [x] I can see the item `option 2` focused after I press the RIGHT arrow

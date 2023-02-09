@@ -7,6 +7,8 @@ import { Welcome } from "./pages/Welcome";
 import { Category } from "./pages/Category";
 
 import "./styles.css";
+import { useEffect } from "react";
+import { getKeyEventHandler } from "./lib/spatial-navigation/user-input";
 
 type AppProps = {
   navEngine: NavEngine;
@@ -24,6 +26,13 @@ const router = createBrowserRouter([
 ]);
 
 export default function App({ navEngine }: AppProps) {
+  useEffect(() => {
+    const handleKeyEvent = getKeyEventHandler(navEngine);
+
+    document.addEventListener("keydown", handleKeyEvent);
+    return () => document.removeEventListener("keydown", handleKeyEvent);
+  }, [navEngine]);
+
   return (
     <NavNodesContext.Provider value={navEngine}>
       <RouterProvider router={router} />

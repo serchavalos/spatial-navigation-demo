@@ -1,6 +1,6 @@
-import { Ref, useCallback, useContext, useEffect, useRef } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import uniqid from "uniqid";
-import { NavNodesContext } from "./nav-engine";
+import { NavEngine, NavNodesContext } from "./nav-engine";
 
 import { NavNode } from "./types";
 
@@ -10,6 +10,38 @@ type FocusRef = {
 };
 
 const nodes: Array<NavNode> = [];
+
+function useNavNodeFocus(engine: NavEngine | undefined, nodeId: string): boolean {
+  const [isFocused, setFocused] = useState<boolean>(false);
+
+  useEffect(() => {
+    let mounted = true;
+
+    if (!engine) {
+      setFocused(false);
+      return undefined;
+    }
+
+    if (engine.isFocused(nodeId)) {
+      setFocused(true);
+    }
+
+    const unsubscribe = engine.subscribe(() => {
+      if (!mounted) {
+        return;
+      }
+
+      setFocused(engine.isFocused(nodeId));
+    });
+
+    return (): void => {
+      mounted = false;
+      unsubscribe();
+    };
+  }, [engine, nodeId]);
+
+  return isFocused;
+}
 
 export function useFocusRef(): FocusRef {
   const ref = useRef<HTMLElement | null>(null);
@@ -29,7 +61,7 @@ export function useFocusRef(): FocusRef {
     };
   }, [ref, navEngine, nodeId]);
 
-  const isFocused = false;
+  const isFocused = useNavNodeFocus(navEngine, nodeId);
 
   return { setRef, isFocused };
 }
