@@ -1,5 +1,13 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from "react";
 import uniqid from "uniqid";
+
 import { NavEngine, NavNodesContext } from "./nav-engine";
 
 type FocusRef = {
@@ -45,7 +53,7 @@ function useNavNodeFocus(
 export function useFocusRef(): FocusRef {
   const ref = useRef<HTMLElement | null>(null);
   const navEngine = useContext(NavNodesContext);
-  const nodeId = uniqid();
+  const nodeId = useMemo(() => uniqid(), []);
 
   const setRef = useCallback(
     (node: HTMLElement | null): void => {
@@ -54,7 +62,6 @@ export function useFocusRef(): FocusRef {
     [navEngine]
   );
 
-  // REVIEW: why is this running 2 times?
   useEffect(() => {
     navEngine?.registerNode({ id: nodeId, ref });
 
