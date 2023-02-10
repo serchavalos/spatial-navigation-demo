@@ -14,7 +14,7 @@ export class NavEngine {
     this.subscriptions = [];
   }
 
-  registerNode(node: NavNode): void{
+  registerNode(node: NavNode): void {
     this.nodes.push(node);
   }
 
@@ -33,16 +33,18 @@ export class NavEngine {
   subscribe(subscriber: Subscriber): VoidFunction {
     this.subscriptions = [...this.subscriptions, subscriber];
     return (): void => {
-      this.subscriptions = this.subscriptions.filter(subscription => subscription !== subscriber);
+      this.subscriptions = this.subscriptions.filter(
+        (subscription) => subscription !== subscriber
+      );
     };
   }
 
   private notifyAllSubscribers(): void {
-    this.subscriptions.forEach(subscriber => subscriber());
+    this.subscriptions.forEach((subscriber) => subscriber());
   }
 
   handleNavigation(direction: Direction): void {
-    if(direction === Direction.DOWN) {
+    if (direction === Direction.DOWN) {
       this.selectedNode = this.nodes[0];
     } else if (direction === Direction.UP) {
       this.selectedNode = this.nodes[this.nodes.length - 1];
@@ -51,9 +53,8 @@ export class NavEngine {
   }
 
   handleSelect(): void {
-    throw new Error('Not implemented yet!')
+    throw new Error("Not implemented yet!");
   }
 }
-
 
 export const NavNodesContext = createContext<NavEngine | undefined>(undefined);

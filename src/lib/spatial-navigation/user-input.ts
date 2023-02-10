@@ -1,10 +1,10 @@
 import { NavEngine } from "./nav-engine";
 
 export enum Direction {
-  RIGHT = 'nextRight',
-  DOWN = 'nextDown',
-  LEFT = 'nextLeft',
-  UP = 'nextUp',
+  RIGHT = "nextRight",
+  DOWN = "nextDown",
+  LEFT = "nextLeft",
+  UP = "nextUp"
 }
 
 const KEY_ARROW_UP = "ArrowUp";
@@ -17,14 +17,14 @@ const DIRECTIONAL_EVENTS = [
   KEY_ARROW_UP,
   KEY_ARROW_DOWN,
   KEY_ARROW_LEFT,
-  KEY_ARROW_RIGHT,
+  KEY_ARROW_RIGHT
 ];
 
 const directions: Record<string, Direction> = {
   [KEY_ARROW_UP]: Direction.UP,
   [KEY_ARROW_DOWN]: Direction.DOWN,
   [KEY_ARROW_LEFT]: Direction.LEFT,
-  [KEY_ARROW_RIGHT]: Direction.RIGHT,
+  [KEY_ARROW_RIGHT]: Direction.RIGHT
 };
 
 export function isDirectional({ code }: KeyboardEvent): boolean {
@@ -41,12 +41,12 @@ export function isSelection({ code }: KeyboardEvent) {
 
 export type KeyEventHandler = (e: KeyboardEvent) => void;
 
-export function getKeyEventHandler(navEngine: NavEngine):KeyEventHandler {
+export function getKeyEventHandler(navEngine: NavEngine): KeyEventHandler {
   return (e: KeyboardEvent) => {
     if (isDirectional(e)) {
       navEngine.handleNavigation(getDirectionFromEvent(e));
     } else if (isSelection(e)) {
       navEngine.handleSelect();
     }
-  }
-};
+  };
+}

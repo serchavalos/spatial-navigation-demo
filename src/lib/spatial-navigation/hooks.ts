@@ -2,16 +2,15 @@ import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import uniqid from "uniqid";
 import { NavEngine, NavNodesContext } from "./nav-engine";
 
-import { NavNode } from "./types";
-
 type FocusRef = {
   setRef: (node: HTMLElement | null) => void;
   isFocused: boolean;
 };
 
-const nodes: Array<NavNode> = [];
-
-function useNavNodeFocus(engine: NavEngine | undefined, nodeId: string): boolean {
+function useNavNodeFocus(
+  engine: NavEngine | undefined,
+  nodeId: string
+): boolean {
   const [isFocused, setFocused] = useState<boolean>(false);
 
   useEffect(() => {
@@ -47,17 +46,20 @@ export function useFocusRef(): FocusRef {
   const ref = useRef<HTMLElement | null>(null);
   const navEngine = useContext(NavNodesContext);
   const nodeId = uniqid();
-  
-  const setRef = useCallback((node: HTMLElement | null): void => {
-    ref.current = node;
-  }, [navEngine]);
-  
+
+  const setRef = useCallback(
+    (node: HTMLElement | null): void => {
+      ref.current = node;
+    },
+    [navEngine]
+  );
+
   // REVIEW: why is this running 2 times?
   useEffect(() => {
     navEngine?.registerNode({ id: nodeId, ref });
 
     return (): void => {
-      navEngine?.unregisterNode(nodeId)
+      navEngine?.unregisterNode(nodeId);
     };
   }, [ref, navEngine, nodeId]);
 

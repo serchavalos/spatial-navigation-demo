@@ -5,7 +5,7 @@ import { useFocusRef } from "../../lib/spatial-navigation";
 
 import "./Option.styles.css";
 
-type OptionProps = {} & PropsWithChildren;
+type OptionProps = PropsWithChildren;
 
 export function Option({ children }: OptionProps): JSX.Element {
   const { setRef, isFocused } = useFocusRef();
