@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import { CSSProperties, PropsWithChildren, useState } from "react";
 
 import { useFocusRef } from "../../lib/spatial-navigation";
 
@@ -15,13 +15,18 @@ export function CategoryTile({
   children
 }: CategoryTileProps): JSX.Element {
   const { setRef, isFocused } = useFocusRef();
+  const [style, setStyle] = useState<CSSProperties>({});
 
   return (
     <div
       ref={setRef}
       onClick={onClick}
-      className={`category-tile${isFocused ? " category-tile--focused" : ""}`}
-      style={isFocused ? { background: color } : {}}
+      onMouseOver={() => {
+        setStyle({ background: color });
+      }}
+      onMouseOut={() => setStyle({})}
+      className={`category-tile${isFocused ? " category-tile--hover" : ""}`}
+      style={isFocused ? { background: color } : style}
     >
       {children}
     </div>

@@ -7,7 +7,7 @@
   text-align: center;
 }
 
-.category-tile--focused {
+.category-tile:hover,
+.category-tile--hover {
   color: white;
-  box-shadow: 0px 4px 6px 7px rgb(204 204 204);
 }

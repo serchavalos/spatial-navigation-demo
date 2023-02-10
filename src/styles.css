@@ -1,3 +1,9 @@
 .App {
   font-family: sans-serif;
 }
+
+h2 {
+  font-size: 1.3rem;
+  color: darkgrey;
+  font-style: italic;
+}

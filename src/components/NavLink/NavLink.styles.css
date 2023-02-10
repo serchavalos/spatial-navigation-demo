@@ -1,10 +1,14 @@
 .link,
 .link:visited {
+  color: white;
   text-decoration: none;
-  padding: 1rem 2rem;
+  margin: 0 0.4rem;
+  padding: 0.6rem 1.5rem;
   border-radius: 4rem;
+  background-color: rgb(119 217 122);
 }
 
-.link--focused {
-  box-shadow: 0px 0px 3px 7px rgb(119 217 122);
+.link:hover,
+.link--hover {
+  box-shadow: 0px 0px 0px 3px rgb(255, 179, 0);
 }
