@@ -1,6 +1,8 @@
 import { createContext } from "react";
+import { fallbackRect } from "./constants";
+import { Direction, directionalFilters } from "./directions";
+import { findElementInDirection } from "./spatial";
 import { NavNode } from "./types";
-import { Direction } from "./user-input";
 
 type Subscriber = () => void;
 
@@ -22,10 +24,6 @@ export class NavEngine {
     this.nodes = this.nodes.filter(({ id }) => id !== nodeId);
   }
 
-  getNodes(): NavNode[] {
-    return this.nodes;
-  }
-
   isFocused(nodeId: string): boolean {
     return this.selectedNode?.id === nodeId;
   }
@@ -44,12 +42,28 @@ export class NavEngine {
   }
 
   handleNavigation(direction: Direction): void {
-    if (direction === Direction.DOWN) {
-      this.selectedNode = this.nodes[0];
-    } else if (direction === Direction.UP) {
-      this.selectedNode = this.nodes[this.nodes.length - 1];
+    const directionalFilter = directionalFilters[direction];
+    const fromReact =
+      this.selectedNode?.ref.getBoundingClientRect() ?? fallbackRect;
+    const nodesRefsWithRects = this.nodes
+      .map((node) => ({
+        ref: node.ref,
+        rect: node.ref.getBoundingClientRect()
+      }))
+      .filter((node) =>
+        directionalFilter.startsAfterFromEnds(fromReact, node.rect)
+      );
+
+    const foundElement = findElementInDirection(
+      fromReact,
+      nodesRefsWithRects,
+      direction
+    );
+
+    if (foundElement) {
+      this.selectedNode = this.nodes.find((leaf) => leaf.ref === foundElement);
+      this.notifyAllSubscribers();
     }
-    this.notifyAllSubscribers();
   }
 
   handleSelect(): void {

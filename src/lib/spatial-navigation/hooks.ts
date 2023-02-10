@@ -63,7 +63,9 @@ export function useFocusRef(): FocusRef {
   );
 
   useEffect(() => {
-    navEngine?.registerNode({ id: nodeId, ref });
+    if (ref?.current) {
+      navEngine?.registerNode({ id: nodeId, ref: ref?.current });
+    }
 
     return (): void => {
       navEngine?.unregisterNode(nodeId);

@@ -1,6 +1,6 @@
-import { Ref } from "react";
-
 export type NavNode = {
   id: string;
-  ref: Ref<HTMLElement>;
+  ref: HTMLElement;
 };
+
+export type RefWithRect = { ref: HTMLElement; rect: DOMRect };
