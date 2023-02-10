@@ -1,4 +1,5 @@
 import {
+  MutableRefObject,
   useCallback,
   useContext,
   useEffect,
@@ -8,60 +9,18 @@ import {
 } from "react";
 import uniqid from "uniqid";
 
-import { NavEngine, NavNodesContext } from "./nav-engine";
+import { NavNodesContext } from "./nav-engine";
 
 type FocusRef = {
   setRef: (node: HTMLElement | null) => void;
   isFocused: boolean;
 };
 
-function useNavNodeFocus(
-  engine: NavEngine | undefined,
-  nodeId: string
-): boolean {
-  const [isFocused, setFocused] = useState<boolean>(false);
-
-  useEffect(() => {
-    let mounted = true;
-
-    if (!engine) {
-      setFocused(false);
-      return undefined;
-    }
-
-    if (engine.isFocused(nodeId)) {
-      setFocused(true);
-    }
-
-    const unsubscribe = engine.subscribe(() => {
-      if (!mounted) {
-        return;
-      }
-
-      setFocused(engine.isFocused(nodeId));
-    });
-
-    return (): void => {
-      mounted = false;
-      unsubscribe();
-    };
-  }, [engine, nodeId]);
-
-  return isFocused;
-}
-
-export function useFocusRef(): FocusRef {
-  const ref = useRef<HTMLElement | null>(null);
+function useRegisterNode(
+  nodeId: string,
+  ref: MutableRefObject<HTMLElement | null>
+) {
   const navEngine = useContext(NavNodesContext);
-  const nodeId = useMemo(() => uniqid(), []);
-
-  const setRef = useCallback(
-    (node: HTMLElement | null): void => {
-      ref.current = node;
-    },
-    [navEngine]
-  );
-
   useEffect(() => {
     if (ref?.current) {
       navEngine?.registerNode({ id: nodeId, ref: ref?.current });
@@ -71,8 +30,51 @@ export function useFocusRef(): FocusRef {
       navEngine?.unregisterNode(nodeId);
     };
   }, [ref, navEngine, nodeId]);
+}
 
-  const isFocused = useNavNodeFocus(navEngine, nodeId);
+function useNodeFocus(nodeId: string): boolean {
+  const navEngine = useContext(NavNodesContext);
+  const [isFocused, setFocused] = useState<boolean>(false);
+
+  useEffect(() => {
+    let mounted = true;
+
+    if (!navEngine) {
+      setFocused(false);
+      return undefined;
+    }
+
+    if (navEngine.isFocused(nodeId)) {
+      setFocused(true);
+    }
+
+    const unsubscribe = navEngine.subscribe(() => {
+      if (!mounted) {
+        return;
+      }
+
+      setFocused(navEngine.isFocused(nodeId));
+    });
+
+    return (): void => {
+      mounted = false;
+      unsubscribe();
+    };
+  }, [navEngine, nodeId]);
+
+  return isFocused;
+}
+
+export function useFocusRef(): FocusRef {
+  const ref = useRef<HTMLElement | null>(null);
+  const nodeId = useMemo(() => uniqid(), []);
+
+  const setRef = useCallback((node: HTMLElement | null): void => {
+    ref.current = node;
+  }, []);
+
+  useRegisterNode(nodeId, ref);
+  const isFocused = useNodeFocus(nodeId);
 
   return { setRef, isFocused };
 }

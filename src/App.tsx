@@ -1,14 +1,16 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { NavNodesContext } from "./lib/spatial-navigation/nav-engine";
+import {
+  NavEngine,
+  NavNodesContext,
+  getKeyEventHandler
+} from "./lib/spatial-navigation";
 
-import { NavEngine } from "./lib/spatial-navigation";
 import { Welcome } from "./pages/Welcome";
 import { Category } from "./pages/Category";
 
 import "./styles.css";
 import { useEffect } from "react";
-import { getKeyEventHandler } from "./lib/spatial-navigation/user-input";
 
 type AppProps = {
   navEngine: NavEngine;
