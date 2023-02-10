@@ -67,7 +67,7 @@ export class NavEngine {
   }
 
   handleSelect(): void {
-    throw new Error("Not implemented yet!");
+    this.selectedNode?.ref.click();
   }
 }
 

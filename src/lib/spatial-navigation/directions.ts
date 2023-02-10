@@ -9,6 +9,7 @@ const KEY_ARROW_UP = "ArrowUp";
 const KEY_ARROW_DOWN = "ArrowDown";
 const KEY_ARROW_LEFT = "ArrowLeft";
 const KEY_ARROW_RIGHT = "ArrowRight";
+const KEY_ENTER = "Enter";
 
 const DIRECTIONAL_EVENTS = [
   KEY_ARROW_UP,
@@ -50,4 +51,8 @@ export const directionalFilters: Record<Direction, DirectionalFilter> = {
 
 export function isDirectional({ code }: KeyboardEvent): boolean {
   return DIRECTIONAL_EVENTS.includes(code);
+}
+
+export function isSelection({ code }: KeyboardEvent): boolean {
+  return code === KEY_ENTER;
 }

@@ -1,4 +1,9 @@
-import { Direction, directionsMap, isDirectional } from "./directions";
+import {
+  Direction,
+  directionsMap,
+  isDirectional,
+  isSelection
+} from "./directions";
 import { NavEngine } from "./nav-engine";
 
 export function getDirectionFromEvent({ code }: KeyboardEvent): Direction {
@@ -11,6 +16,8 @@ export function getKeyEventHandler(navEngine: NavEngine): KeyEventHandler {
   return (e: KeyboardEvent) => {
     if (isDirectional(e)) {
       navEngine.handleNavigation(getDirectionFromEvent(e));
+    } else if (isSelection(e)) {
+      navEngine.handleSelect();
     }
   };
 }
