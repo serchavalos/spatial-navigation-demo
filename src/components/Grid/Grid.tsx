@@ -1,18 +1,44 @@
-import { Option } from "../Option/Option";
+import { useNavigate } from "react-router-dom";
+
+import { CategoryTile } from "../CategoryTile/CategoryTile";
 
 import "./Grid.styles.css";
 
-type GridProps = {
-  length?: number;
-};
+const colors = [
+  "#1C3144",
+  "#D00000",
+  "#FFBA08",
+  "#A2AEBB",
+  "#3F88C5",
+  "#75DDDD",
+  "#508991",
+  "#172A3A",
+  "#474056"
+];
 
-export function Grid({ length = 9 }: GridProps): JSX.Element {
-  const optionLabels = new Array(length).fill(null).map((_, index) => index);
+const exampleTiles = colors.map((color, i) => {
+  const categoryId: number = i + 1;
+
+  return {
+    categoryId,
+    color: color,
+    label: `category ${categoryId}`
+  };
+});
+
+export function Grid(): JSX.Element {
+  const navigate = useNavigate();
 
   return (
     <div className="grid">
-      {optionLabels.map((label, index) => (
-        <Option key={`option-${index}`}>{label}</Option>
+      {exampleTiles.map(({ categoryId, label, color }) => (
+        <CategoryTile
+          color={color}
+          key={`category-${categoryId}`}
+          onClick={() => navigate(`/category/${categoryId}`)}
+        >
+          <h3>{label}</h3>
+        </CategoryTile>
       ))}
     </div>
   );

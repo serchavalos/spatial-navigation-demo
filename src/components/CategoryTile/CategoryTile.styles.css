@@ -1,0 +1,13 @@
+.category-tile {
+  color: gray;
+  padding: 5rem;
+  text-transform: capitalize;
+  border-radius: 1.2rem;
+  background: linear-gradient(to bottom, #8e9eab, #c7d0d7);
+  text-align: center;
+}
+
+.category-tile--focused {
+  color: white;
+  box-shadow: 0px 4px 6px 7px rgb(204 204 204);
+}

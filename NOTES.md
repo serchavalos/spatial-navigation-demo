@@ -10,4 +10,4 @@
 - [x] I can see the item `option 1` focused after I press the DOWN arrow
 - [x] I can see the item `option 2` focused after I press the RIGHT arrow
 - [x] I can select any item according to their coordinates
-- [ ] I can navigate to another page after selecting an item and pressing "enter" key
+- [x] I can navigate to another page after selecting an item and pressing "enter" key
