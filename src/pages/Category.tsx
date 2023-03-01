@@ -1,47 +1,27 @@
-import { useParams } from "react-router-dom";
+import { useMemo } from "react";
 import { NavLink } from "../components/NavLink/NavLink";
 
 export function Category(): JSX.Element {
-  const { categoryId } = useParams();
+  const imageSources = useMemo<string[]>(
+    () => [
+      "/images/coin.webp",
+      "/images/mushroom.webp",
+      "/images/star.webp",
+      "/images/yoshi-egg.webp"
+    ],
+    []
+  );
+  const random = Math.floor(Math.random() * imageSources.length);
 
   return (
-    <div className="App">
-      <h1>Category {categoryId}</h1>
-      <h2>This is where I bore the hell out of you</h2>
+    <section className="App">
+      <h1>Surprise!</h1>
       <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus
-        libero adipisci, voluptas ex dolores provident ab saepe quo magnam,
-        nihil obcaecati sapiente id fugit ratione iusto minima, doloribus harum
-        et.
+        <img className="super-power__image" src={imageSources[random]} />
       </p>
       <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus
-        libero adipisci, voluptas ex dolores provident ab saepe quo magnam,
-        nihil obcaecati sapiente id fugit ratione iusto minima, doloribus harum
-        et.
-      </p>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus
-        libero adipisci, voluptas ex dolores provident ab saepe quo magnam,
-        nihil obcaecati sapiente id fugit ratione iusto minima, doloribus harum
-        et.
-      </p>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus
-        libero adipisci, voluptas ex dolores provident ab saepe quo magnam,
-        nihil obcaecati sapiente id fugit ratione iusto minima, doloribus harum
-        et.
-      </p>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus
-        libero adipisci, voluptas ex dolores provident ab saepe quo magnam,
-        nihil obcaecati sapiente id fugit ratione iusto minima, doloribus harum
-        et.
-      </p>
-      <p>
-        Got enough yet?
         <NavLink to="/">Go back</NavLink>
       </p>
-    </div>
+    </section>
   );
 }

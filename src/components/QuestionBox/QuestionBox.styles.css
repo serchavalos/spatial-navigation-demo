@@ -1,0 +1,17 @@
+.question-box {
+  display: flex;
+  justify-content: center;
+  filter: grayscale(1);
+  transition-property: transform;
+  transition-duration: 0.2s;
+}
+
+.question-box:hover,
+.question-box-hover {
+  filter: unset;
+  transform: scale(1.2);
+}
+
+.question-box__image {
+  width: 100px;
+}

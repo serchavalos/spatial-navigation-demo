@@ -1,17 +1,25 @@
 .App {
   font-family: sans-serif;
   background-color: white;
-  height: 100vh;
+  text-align: center;
 }
 
-h2 {
-  font-size: 1.3rem;
-  color: darkgrey;
-  font-style: italic;
+.super-power__image {
+  width: 175px;
+  margin: 2rem;
+  animation-name: spinner;
+  animation-timing-function: ease-out;
+  animation-duration: 0.5s;
+  animation-delay: 0.2s;
+  transform-style: preserve-3d;
 }
 
-a:hover,
-div.category-tile:hover,
-div.category-tile--hover {
-  box-shadow: 0px 0px 0px 5px rgb(255, 179, 0);
+@keyframes spinner {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(-360deg);
+  }
 }
