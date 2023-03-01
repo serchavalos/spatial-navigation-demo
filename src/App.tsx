@@ -28,12 +28,22 @@ const router = createBrowserRouter([
 ]);
 
 export default function App({ navEngine }: AppProps) {
-  useEffect(() => {
-    const handleKeyEvent = getKeyEventHandler(navEngine);
+  const handleKeyEvent = getKeyEventHandler(navEngine);
 
+  useEffect(() => {
     document.addEventListener("keydown", handleKeyEvent);
     return () => document.removeEventListener("keydown", handleKeyEvent);
-  }, [navEngine]);
+  }, []);
+
+  useEffect(() => {
+    const handlePostMessage = (event: MessageEvent) => {
+      const { action } = event.data;
+      handleKeyEvent({ code: action } as KeyboardEvent);
+    };
+    window.addEventListener("message", handlePostMessage, false);
+
+    return () => window.removeEventListener("message", handlePostMessage);
+  }, []);
 
   return (
     <NavNodesContext.Provider value={navEngine}>

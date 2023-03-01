@@ -1,9 +1,17 @@
 .App {
   font-family: sans-serif;
+  background-color: white;
+  height: 100vh;
 }
 
 h2 {
   font-size: 1.3rem;
   color: darkgrey;
   font-style: italic;
+}
+
+a:hover,
+div.category-tile:hover,
+div.category-tile--hover {
+  box-shadow: 0px 0px 0px 5px rgb(255, 179, 0);
 }

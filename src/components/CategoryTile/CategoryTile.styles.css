@@ -1,13 +1,8 @@
 .category-tile {
-  color: gray;
-  padding: 5rem;
+  color: white;
+  padding: 2.5rem;
   text-transform: capitalize;
   border-radius: 1.2rem;
   background: linear-gradient(to bottom, #8e9eab, #c7d0d7);
   text-align: center;
-}
-
-.category-tile:hover,
-.category-tile--hover {
-  color: white;
 }
