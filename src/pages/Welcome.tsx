@@ -1,11 +1,18 @@
-import { Grid } from "../components/Grid/Grid";
+import { Layout } from "../components/Layout";
+import { QuestionBox } from "../components/QuestionBox";
+
+import "./Welcome.styles.css";
 
 export function Welcome(): JSX.Element {
+  const boxes = new Array(10).fill(null);
+
   return (
-    <div className="App">
-      <h1>Spatial Navigation Demo</h1>
-      <p>You the arrow (UP/DOWN/LEFT/RIGHT) to pick a category:</p>
-      <Grid />
-    </div>
+    <Layout title="Spatial Navigation Demo">
+      <div className="question-box-grid">
+        {boxes.map((_, index) => (
+          <QuestionBox key={`question-box-${index}`} />
+        ))}
+      </div>
+    </Layout>
   );
 }

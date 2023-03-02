@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import { Link, LinkProps } from "react-router-dom";
-import { useFocusRef } from "../../lib/spatial-navigation";
+import { useFocusRef } from "../lib/spatial-navigation";
 
 import "./NavLink.styles.css";
 

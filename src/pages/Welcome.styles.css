@@ -1,9 +1,10 @@
-.grid {
+.question-box-grid {
   display: grid;
   grid-template-columns: repeat(5, 105px);
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 1rem;
   grid-row-gap: 1rem;
   margin: auto;
   width: 590px;
+  margin-top: 12rem;
 }

@@ -1,25 +1,5 @@
-.App {
-  font-family: sans-serif;
-  background-color: white;
-  text-align: center;
-}
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-.super-power__image {
-  width: 175px;
-  margin: 2rem;
-  animation-name: spinner;
-  animation-timing-function: ease-out;
-  animation-duration: 0.5s;
-  animation-delay: 0.2s;
-  transform-style: preserve-3d;
-}
-
-@keyframes spinner {
-  from {
-    transform: rotateY(0deg);
-  }
-
-  to {
-    transform: rotateY(-360deg);
-  }
+body {
+  font-family: 'Press Start 2P', cursive;
 }

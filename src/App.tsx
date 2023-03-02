@@ -7,7 +7,7 @@ import {
 } from "./lib/spatial-navigation";
 
 import { Welcome } from "./pages/Welcome";
-import { Category } from "./pages/Category";
+import { Surprise } from "./pages/Surprise";
 
 import "./styles.css";
 import { useEffect } from "react";
@@ -22,8 +22,8 @@ const router = createBrowserRouter([
     element: <Welcome />
   },
   {
-    path: "/category/:categoryId",
-    element: <Category />
+    path: "/surprise",
+    element: <Surprise />
   }
 ]);
 

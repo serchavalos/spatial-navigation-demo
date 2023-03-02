@@ -1,0 +1,24 @@
+.super-power {
+  padding: 5rem;
+  background: radial-gradient(circle, rgba(250, 251, 63, 1) 0%, rgba(245, 252, 70, 0) 28%)
+}
+
+.super-power__image {
+  width: 175px;
+  margin: 2rem;
+  animation-name: spinner;
+  animation-timing-function: ease-out;
+  animation-duration: 0.5s;
+  animation-delay: 0.2s;
+  transform-style: preserve-3d;
+}
+
+@keyframes spinner {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(-360deg);
+  }
+}

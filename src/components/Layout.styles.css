@@ -1,0 +1,22 @@
+.App {
+  background-color: white;
+  text-align: center;
+  height: 100vh;
+  display: flex;
+}
+
+.App h1 {
+  color: white;
+  text-shadow: 6px 2px 1px black;
+  font-size: 3rem;
+  margin: 7rem 0 0 0;
+}
+
+.main {
+  background-image: url('/public/images/background.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 1342px;
+  height: 976px;
+  margin: auto;
+}

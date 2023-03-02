@@ -6,8 +6,8 @@
 - [x] Add a type of `Node` which recives a this ID plus the ref
 
 ## Todo
-- [ ] Create a layout component
-- [ ] Add a nice background gradient
+- [x] Create a layout component
+- [x] Add a nice background gradient
 
 ## Scenarios
 
