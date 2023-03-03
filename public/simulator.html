@@ -2,8 +2,8 @@
 <html>
 
 <head>
-  <title>Spotify - TV</title>
-  <link rel="shortcut icon" type="image/jpg" href="favicon.ico" />
+  <title>Spatial Navigation Demo - TV Simulator</title>
+  <link rel="shortcut icon" type="image/jpg" href="/favicon.ico" />
   <style>
     body,
     html {
@@ -13,6 +13,10 @@
     body {
       background-color: rgb(40, 40, 40);
       overflow: hidden;
+    }
+
+    #root {
+      width: 1000px;
     }
 
     #tv-app-frame {
@@ -27,7 +31,7 @@
     #tv-remote {
       position: absolute;
       top: 10%;
-      right: 40px;
+      left: 950px;
       height: 80%;
       z-index: 1000;
       transition: opacity 0.5s;
@@ -63,7 +67,11 @@
 </head>
 
 <body>
-  <div id="frame-container"></div>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+  <div id="root"></div>
+
   <div id="tv-remote">
     <!-- 
         Following button actions exists 
@@ -92,71 +100,15 @@
   <script type="text/javascript">
     let repeatTimer;
 
-    function showRemote(visible) {
-      const remote = document.getElementById('tv-remote');
-      remote.style.opacity = visible ? 1 : 0;
-    }
-
     function addRemoteClickHandler() {
       const remote = document.getElementById('tv-remote');
       remote.addEventListener('mousedown', onMouseEvent);
     }
 
-    function addFrame(src) {
-      const iframe = document.createElement('iframe');
-      iframe.src = src;
-      iframe.id = 'tv-app-frame';
-      iframe.width = 1920;
-      iframe.height = 1080;
-      iframe.allow = 'encrypted-media';
-      iframe.scrolling = 'no';
-
-      const frameContainer = document.getElementById('frame-container');
-      frameContainer.appendChild(iframe);
-    }
-
-    function postMessage(message) {
-      const iframe = document.getElementById('tv-app-frame');
-      iframe.contentWindow.postMessage(message, '*');
-    }
-
     function onMouseEvent(event) {
-      postMessage({ action: event.target.id, type: event.type });
+      // TODO: here is where you emit the events
     }
 
-    function getQueryParam(url, name) {
-      if (url.startsWith('?')) {
-        const params = url.slice(1).split('&');
-        for (let i = 0; i < params.length; i++) {
-          const [key, value] = params[i].split('=');
-          if (key === name) {
-            return value;
-          }
-        }
-      }
-    }
-
-    function onWindowSize() {
-      const scale = Math.min(window.innerHeight / 1080, (window.innerWidth - 220) / 1920);
-      const element = document.querySelector('#tv-app-frame');
-
-      if (element) {
-        element.style.transform = 'scale(' + scale + ')';
-      }
-    }
-
-    const url = getQueryParam(document.location.search, 'url');
-
-    addFrame(url);
-    onWindowSize();
-    window.onresize = onWindowSize;
-    let remoteVisible = true;
-
-    document.addEventListener('keypress', event => {
-      console.log('keypress: ', event);
-      remoteVisible = !remoteVisible;
-      showRemote(remoteVisible);
-    });
     addRemoteClickHandler();
   </script>
 </body>

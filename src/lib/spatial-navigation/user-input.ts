@@ -1,10 +1,4 @@
-import {
-  Direction,
-  directionsMap,
-  isDirectional,
-  isSelection
-} from "./directions";
-import { NavEngine } from "./nav-engine";
+import { Direction, directionsMap } from "./directions";
 
 export function getDirectionFromEvent({ code }: KeyboardEvent): Direction {
   return directionsMap[code];
