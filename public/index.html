@@ -106,7 +106,7 @@
     }
 
     function onMouseEvent(event) {
-      // TODO: here is where you emit the events
+      document.dispatchEvent(new KeyboardEvent('keydown', { code: event.target.id }));
     }
 
     addRemoteClickHandler();

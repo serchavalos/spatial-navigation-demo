@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import App from "./App";
-import { NavEngine } from "./lib/spatial-navigation";
+import { NavEngine, NavNodesContext } from "./lib/spatial-navigation";
 
 const rootElement = document.getElementById("root");
 if (!rootElement) {
@@ -16,6 +16,8 @@ window.navEngine = navEngine;
 
 root.render(
   <StrictMode>
-    <App navEngine={navEngine} />
+    <NavNodesContext.Provider value={navEngine}>
+      <App />
+    </NavNodesContext.Provider>
   </StrictMode>
 );

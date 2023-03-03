@@ -2,8 +2,8 @@
 <html>
 
 <head>
-  <title>Spatial Navigation Demo - TV Simulator</title>
-  <link rel="shortcut icon" type="image/jpg" href="/favicon.ico" />
+  <title>Spatial Navigation Demo</title>
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
   <style>
     body,
     html {
@@ -106,7 +106,7 @@
     }
 
     function onMouseEvent(event) {
-      // TODO: here is where you emit the events
+      document.dispatchEvent(new KeyboardEvent('keydown', { code: event.target.id }));
     }
 
     addRemoteClickHandler();

@@ -25,30 +25,6 @@ export const directionsMap: Record<string, Direction> = {
   [KEY_ARROW_RIGHT]: Direction.RIGHT
 };
 
-type DirectionalFilter = {
-  startsAfterFromEnds: (from: DOMRect, to: DOMRect) => boolean;
-  endsAfterFromEnds: (from: DOMRect, to: DOMRect) => boolean;
-};
-
-export const directionalFilters: Record<Direction, DirectionalFilter> = {
-  [Direction.RIGHT]: {
-    startsAfterFromEnds: (from, to) => from.right <= to.left,
-    endsAfterFromEnds: (from, to) => from.right < to.right
-  },
-  [Direction.DOWN]: {
-    startsAfterFromEnds: (from, to) => from.bottom <= to.top,
-    endsAfterFromEnds: (from, to) => from.bottom < to.bottom
-  },
-  [Direction.LEFT]: {
-    startsAfterFromEnds: (from, to) => from.left >= to.right,
-    endsAfterFromEnds: (from, to) => from.left > to.left
-  },
-  [Direction.UP]: {
-    startsAfterFromEnds: (from, to) => from.top >= to.bottom,
-    endsAfterFromEnds: (from, to) => from.top > to.top
-  }
-};
-
 export function isDirectional({ code }: KeyboardEvent): boolean {
   return DIRECTIONAL_EVENTS.includes(code);
 }
