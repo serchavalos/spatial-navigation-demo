@@ -166,26 +166,17 @@ function closestItemInCrossAxis(
   return sortedItems[0]?.ref;
 }
 
-export function filterByAxis(
+export function findElementInDirection(
   fromRect: DOMRect,
   items: RefWithRect[],
   direction: Direction
-): RefWithRect[] {
-  const { crossAxis } = axes[direction];
-
-  return items.filter(isItemIn5(fromRect, crossAxis));
-}
-
-export function pickClosestNode(
-  fromRect: DOMRect,
-  items: RefWithRect[],
-  filteredItems: RefWithRect[],
-  direction: Direction
-) {
+): HTMLElement | undefined {
   const { mainAxis, crossAxis } = axes[direction];
 
-  if (filteredItems.length > 0) {
-    return closestItemInMainAxis(fromRect, filteredItems, mainAxis, crossAxis);
+  const itemsIn5 = items.filter(isItemIn5(fromRect, crossAxis));
+
+  if (itemsIn5.length > 0) {
+    return closestItemInMainAxis(fromRect, itemsIn5, mainAxis, crossAxis);
   }
 
   return closestItemInCrossAxis(fromRect, items, mainAxis, crossAxis);
