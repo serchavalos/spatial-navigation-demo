@@ -1,4 +1,5 @@
 import { Direction, directionsMap, isDirectional } from "./directions";
+import { NavEngine } from "./nav-engine";
 
 export function getDirectionFromEvent({ code }: KeyboardEvent): Direction {
   return directionsMap[code];
@@ -6,11 +7,10 @@ export function getDirectionFromEvent({ code }: KeyboardEvent): Direction {
 
 export type KeyEventHandler = (e: KeyboardEvent) => void;
 
-export function getKeyEventHandler(): KeyEventHandler {
+export function getKeyEventHandler(navEngine: NavEngine): KeyEventHandler {
   return (e: KeyboardEvent) => {
     if (isDirectional(e)) {
-      // eslint-disable-next-line
-      console.log(e);
+      navEngine.handleNavigation(getDirectionFromEvent(e));
     }
   };
 }

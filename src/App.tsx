@@ -1,12 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { getKeyEventHandler } from "./lib/spatial-navigation";
+import { getKeyEventHandler, NavNodesContext } from "./lib/spatial-navigation";
 
 import { Welcome } from "./pages/Welcome";
 import { Surprise } from "./pages/Surprise";
 
 import "./styles.css";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 
 const router = createBrowserRouter([
   {
@@ -20,9 +20,14 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  const handleKeyEvent = getKeyEventHandler();
+  const navEngine = useContext(NavNodesContext);
 
   useEffect(() => {
+    if (!navEngine) {
+      return;
+    }
+
+    const handleKeyEvent = getKeyEventHandler(navEngine);
     document.addEventListener("keydown", handleKeyEvent);
     return () => document.removeEventListener("keydown", handleKeyEvent);
   }, []);
