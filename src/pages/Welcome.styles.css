@@ -1,10 +1,10 @@
 .question-box-grid {
+  --grid-gap: 15px;
+
   display: grid;
-  grid-template-columns: repeat(5, 105px);
-  grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: 1rem;
-  grid-row-gap: 1rem;
+  grid-template-columns: repeat(5, var(--question-box-witdh));
+  grid-gap: var(--grid-gap);
   margin: auto;
-  width: 590px;
-  margin-top: 12rem;
+  width: calc(var(--question-box-witdh) * 5 + var(--grid-gap) * 4);
+  margin-top: 192px;
 }

@@ -1,17 +1,9 @@
 .question-box {
   display: flex;
-  justify-content: center;
-  filter: grayscale(1);
   transition-property: transform;
   transition-duration: 0.2s;
 }
 
-.question-box:hover,
-.question-box-hover {
-  filter: unset;
-  transform: translateY(-10px);
-}
-
 .question-box__image {
-  width: 100px;
+  width: var(--question-box-witdh);
 }

@@ -10,11 +10,7 @@ export function NavLink({ to, children }: NavLink): JSX.Element {
   const { setRef, isFocused } = useFocusRef();
 
   return (
-    <Link
-      ref={setRef}
-      className={`link${isFocused ? " link--hover" : ""}`}
-      to={to}
-    >
+    <Link ref={setRef} className={`link ${isFocused ? "hover" : ""}`} to={to}>
       {children}
     </Link>
   );

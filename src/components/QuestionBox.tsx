@@ -7,10 +7,7 @@ export function QuestionBox(): JSX.Element {
   const { setRef, isFocused } = useFocusRef();
 
   return (
-    <Link
-      className={`question-box ${isFocused && "question-box-hover"}`}
-      to="/surprise"
-    >
+    <Link className={`question-box ${isFocused && "hover"}`} to="/surprise">
       <img
         ref={setRef}
         className="question-box__image"

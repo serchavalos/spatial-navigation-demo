@@ -7,16 +7,16 @@
 
 .App h1 {
   color: white;
-  text-shadow: 6px 2px 1px black;
-  font-size: 3rem;
-  margin: 7rem 0 0 0;
+  text-shadow: var(--h1-text-shadow);
+  font-size: var(--h1-font-size);
+  margin: 112px 0 0 0;
 }
 
 .main {
   background-image: url('/public/images/background.png');
   background-repeat: no-repeat;
   background-position: center;
-  width: 1342px;
-  height: 976px;
+  height: var(--main-height);
+  width: var(--main-width);
   margin: auto;
 }

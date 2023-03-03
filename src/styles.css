@@ -1,5 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+:root {
+  --question-box-witdh: 100px;
+  --main-height: 975px;
+  --main-width: 1340px;
+  --h1-font-size: 48px;
+  --h1-text-shadow: 6px 2px 1px black;
+}
+
 body {
   font-family: 'Press Start 2P', cursive;
+}
+
+a {
+  filter: grayscale(1);
+}
+
+a:hover,
+a.hover {
+  filter: unset;
+  transform: translateY(-10px);
 }

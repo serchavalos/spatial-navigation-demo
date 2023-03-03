@@ -2,14 +2,7 @@
 .link:visited {
   color: white;
   text-decoration: none;
-  margin: 0 0.4rem;
-  padding: 0.6rem 1.5rem;
-  border-radius: 4rem;
+  padding: 10px 24px;
+  border-radius: 65px;
   background-color: rgb(255, 179, 0);
-  filter: grayscale(1);
-}
-
-.link:hover,
-.link--hover {
-  filter: grayscale(0);
 }
