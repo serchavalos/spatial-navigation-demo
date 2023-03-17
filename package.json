@@ -39,8 +39,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "simulator": "http-server public",
-    "demo": "concurrently --kill-others \"yarn start\" \"yarn simulator\""
+    "demo": "http-server demo"
   },
   "browserslist": [
     ">0.2%",
