@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Spatial Navigation Demo</title>
+  <link rel="shortcut icon" href="/favicon.ico">
+  <style>
+    body,
+    html {
+      margin: 0 0
+    }
+
+    body {
+      background-color: #282828;
+      overflow: hidden
+    }
+
+    #root {
+      width: 1000px
+    }
+
+    #tv-app-frame {
+      transform-origin: 0 0;
+      border: 0
+    }
+
+    #tv-app-frame:target {
+      border: 1px solid #fff
+    }
+
+    #tv-remote {
+      position: absolute;
+      top: 10%;
+      left: 950px;
+      height: 80%;
+      z-index: 1000;
+      transition: opacity .5s
+    }
+
+    #tv-remote button {
+      display: block;
+      position: absolute;
+      border: 1px solid transparent;
+      border-radius: 30%;
+      background-color: transparent;
+      outline: 0
+    }
+
+    #tv-remote button#select {
+      border-radius: 50%
+    }
+
+    #tv-remote button:focus {
+      background-color: rgba(182, 24, 169, .2)
+    }
+
+    #tv-remote button:hover {
+      background-color: rgba(203, 213, 109, .1)
+    }
+
+    #tv-remote button:active {
+      outline: 0;
+      background-color: rgba(8, 89, 35, .6)
+    }
+
+  </style>
+  <link href="/static/css/main.ce600c67.css" rel="stylesheet">
+</head>
+
+<body><noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+  <div id="tv-remote"><img src="https://tv.scdn.co/tmp/userTest/app/tv-remote_fixed.png" with="100%" height="100%" />
+    <button id="back" style="top:11%;left:15%;width:33%;height:5.5%"></button> <button id="exit"
+      style="top:11%;left:54%;width:33%;height:5.5%"></button> <button id="ArrowUp"
+      style="top:19%;left:40%;width:22%;height:6.5%"></button> <button id="ArrowLeft"
+      style="top:26%;left:15%;width:22%;height:7%"></button> <button id="Enter"
+      style="top:26%;left:40%;width:22%;height:6.5%"></button> <button id="ArrowRight"
+      style="top:26%;left:64%;width:22%;height:7%"></button> <button id="ArrowDown"
+      style="top:33.5%;left:40%;width:22%;height:6.5%"></button> <button id="restart"
+      style="top:42.5%;left:15%;width:33%;height:5.5%"></button> <button id="saveTrack"
+      style="top:42.5%;left:54%;width:33%;height:5.5%"></button> <button id="rewind"
+      style="top:50%;left:15%;width:22%;height:4%"></button> <button id="togglePlay"
+      style="top:50%;left:40%;width:22%;height:4%"></button> <button id="fastForward"
+      style="top:50%;left:65%;width:22%;height:4%"></button>
+  </div>
+  <script
+    type="text/javascript">let repeatTimer; function addRemoteClickHandler() { document.getElementById("tv-remote").addEventListener("mousedown", onMouseEvent) } function onMouseEvent(e) { document.dispatchEvent(new KeyboardEvent("keydown", { code: e.target.id })) } addRemoteClickHandler()</script>
+  <script type="text/javascript">
+    const bundles = {
+      "0": "main.877b045f.js",
+      "1": "main.2c93959d.js",
+      "2": "main.7961fb62.js",
+      "3": "main.d3634209.js",
+      "4": "main.1960289c.js"
+    }
+    const params = (new URL(document.location)).searchParams;
+    let step = params.get("step") ?? '0';
+
+    const bundleJS = document.createElement('script');
+    bundleJS.type = "text/javascript";
+    bundleJS.src = `/static/js/${bundles[step]}`
+
+    document.head.appendChild(bundleJS);
+  </script>
+</body>
+
+</html>
