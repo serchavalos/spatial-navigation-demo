@@ -18,14 +18,12 @@ export function Surprise(): JSX.Element {
 
   return (
     <Layout title="Surprise!">
-      <div>
-        <p className="super-power">
-          <img className="super-power__image" src={imageSources[random]} />
-        </p>
-        <p>
-          <NavLink to="/">Go back</NavLink>
-        </p>
-      </div>
+      <p className="super-power">
+        <img className="super-power__image" src={imageSources[random]} />
+      </p>
+      <p>
+        <NavLink to="/">Go back</NavLink>
+      </p>
     </Layout>
   );
 }

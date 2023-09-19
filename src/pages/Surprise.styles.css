@@ -1,6 +1,10 @@
 .super-power {
-  padding: 80px;
-  background: radial-gradient(circle, rgba(250, 251, 63, 1) 0%, rgba(245, 252, 70, 0) 28%)
+  padding: 20px;
+  background: radial-gradient(
+    circle,
+    rgba(250, 251, 63, 1) 0%,
+    rgba(245, 252, 70, 0) 28%
+  );
 }
 
 .super-power__image {

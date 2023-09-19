@@ -5,29 +5,6 @@
   <title>Spatial Navigation Demo</title>
   <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
   <style>
-    body,
-    html {
-      margin: 0 0;
-    }
-
-    body {
-      background-color: rgb(40, 40, 40);
-      overflow: hidden;
-    }
-
-    #root {
-      width: 1000px;
-    }
-
-    #tv-app-frame {
-      transform-origin: 0 0;
-      border: 0px;
-    }
-
-    #tv-app-frame:target {
-      border: 1px solid white;
-    }
-
     #tv-remote {
       position: absolute;
       top: 10%;
@@ -62,7 +39,6 @@
       outline: none;
       background-color: rgba(8, 89, 35, 0.6);
     }
-
   </style>
 </head>
 
@@ -70,7 +46,7 @@
   <noscript>
     You need to enable JavaScript to run this app.
   </noscript>
-  <div id="root"></div>
+  <main id="root"></main>
 
   <div id="tv-remote">
     <!-- 
@@ -79,7 +55,7 @@
         'play','pause','stop','togglePlay','fastForward','rewind','next','previous', 'restart',
         'left', 'right', 'up', 'down', 'back', 'select', 'saveTrack', 'exit'
       -->
-    <img src="https://tv.scdn.co/tmp/userTest/app/tv-remote_fixed.png" with="100%" height="100%" />
+    <img src="/images/tv-remote.png" with="100%" height="100%" />
     <button id="back" style="top: 11%; left: 15%; width: 33%; height: 5.5%;"></button>
     <button id="exit" style="top: 11%; left: 54%; width: 33%; height: 5.5%;"></button>
 

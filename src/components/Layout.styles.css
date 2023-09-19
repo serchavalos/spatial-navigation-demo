@@ -1,22 +1,21 @@
-.App {
-  background-color: white;
+main {
+  background-image: url("/public/images/background.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: var(--main-height);
+  width: var(--main-width);
   text-align: center;
-  height: 100vh;
-  display: flex;
 }
 
-.App h1 {
+h1 {
+  text-align: inherit;
   color: white;
   text-shadow: var(--h1-text-shadow);
   font-size: var(--h1-font-size);
-  margin: 112px 0 0 0;
+  margin: 112px 0 35px 0;
 }
 
-.main {
-  background-image: url('/public/images/background.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  height: var(--main-height);
-  width: var(--main-width);
-  margin: auto;
+p {
+  text-align: inherit;
 }

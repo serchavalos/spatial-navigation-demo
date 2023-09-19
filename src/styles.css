@@ -1,15 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
 :root {
   --question-box-witdh: 100px;
-  --main-height: 975px;
-  --main-width: 1340px;
+  --main-height: 100vh;
+  --main-width: 1000px;
   --h1-font-size: 48px;
   --h1-text-shadow: 6px 2px 1px black;
 }
 
+body,
+html {
+  margin: 0 0;
+}
+
 body {
-  font-family: 'Press Start 2P', cursive;
+  margin: 0;
+  font-family: "Press Start 2P", cursive;
+  background-color: rgb(40, 40, 40);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
 }
 
 a {
