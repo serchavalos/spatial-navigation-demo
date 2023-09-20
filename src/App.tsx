@@ -1,12 +1,13 @@
+import { useContext, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { getKeyEventHandler, NavNodesContext } from "./lib/spatial-navigation";
+import { getKeyEventHandler, NavEngineContext } from "./lib/spatial-navigation";
 
 import { Welcome } from "./pages/Welcome";
 import { Surprise } from "./pages/Surprise";
 
 import "./styles.css";
-import { useContext, useEffect } from "react";
+import { LevelUp } from "./pages/LevelUp";
 
 const router = createBrowserRouter([
   {
@@ -16,11 +17,15 @@ const router = createBrowserRouter([
   {
     path: "/surprise",
     element: <Surprise />
+  },
+  {
+    path: "/levelup",
+    element: <LevelUp />
   }
 ]);
 
 export default function App() {
-  const navEngine = useContext(NavNodesContext);
+  const navEngine = useContext(NavEngineContext);
 
   useEffect(() => {
     if (!navEngine) {
@@ -30,7 +35,7 @@ export default function App() {
     const handleKeyEvent = getKeyEventHandler(navEngine);
     document.addEventListener("keydown", handleKeyEvent);
     return () => document.removeEventListener("keydown", handleKeyEvent);
-  }, []);
+  }, [navEngine]);
 
   return <RouterProvider router={router} />;
 }

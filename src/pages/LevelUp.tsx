@@ -1,21 +1,27 @@
 import { Layout } from "../components/Layout";
 import { NavLink } from "../components/NavLink";
 import { QuestionBox } from "../components/QuestionBox";
+import { NavContainer } from "../lib/spatial-navigation";
 
 import "./Welcome.styles.css";
 
-export function Welcome(): JSX.Element {
-  const boxes = new Array(10).fill(null);
+export function LevelUp(): JSX.Element {
+  const boxes = new Array(5).fill(null);
 
   return (
-    <Layout title="Spatial Navigation Demo">
+    <Layout title="Level up!">
       <section className="question-box-grid">
         {boxes.map((_, index) => (
           <QuestionBox key={`question-box-${index}`} />
         ))}
+        <NavContainer>
+          {boxes.map((_, index) => (
+            <QuestionBox key={`question-box-${index}`} />
+          ))}
+        </NavContainer>
       </section>
       <p>
-        <NavLink to="/">Level up!</NavLink>
+        <NavLink to="/">Back</NavLink>
       </p>
     </Layout>
   );

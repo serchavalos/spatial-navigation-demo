@@ -6,6 +6,13 @@ import { NavNode } from "./types";
 
 type Subscriber = VoidFunction;
 
+// REVIEW: How to do this with TS (import `ref` and make it required)
+type NodeWithRef = Omit<NavNode, "ref"> & { ref: HTMLElement };
+
+function navNodesWithRef(n: NavNode | NodeWithRef): n is NodeWithRef {
+  return n.ref !== undefined;
+}
+
 export class NavEngine {
   private nodes: NavNode[];
   private selectedNode: NavNode | undefined;
@@ -44,8 +51,9 @@ export class NavEngine {
   handleNavigation(direction: Direction): void {
     const directionalFilter = directionalFilters[direction];
     const fromReact =
-      this.selectedNode?.ref.getBoundingClientRect() ?? fallbackRect;
+      this.selectedNode?.ref?.getBoundingClientRect() ?? fallbackRect;
     const nodesRefsWithRects = this.nodes
+      .filter(navNodesWithRef)
       .map((node) => ({
         ref: node.ref,
         rect: node.ref.getBoundingClientRect()
@@ -67,8 +75,8 @@ export class NavEngine {
   }
 
   handleSelect(): void {
-    this.selectedNode?.ref.click();
+    this.selectedNode?.ref?.click();
   }
 }
 
-export const NavNodesContext = createContext<NavEngine | undefined>(undefined);
+export const NavEngineContext = createContext<NavEngine | undefined>(undefined);

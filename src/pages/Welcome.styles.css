@@ -4,6 +4,6 @@
   display: grid;
   grid-template-columns: repeat(5, var(--question-box-witdh));
   grid-gap: var(--grid-gap);
-  margin: auto;
   width: calc(var(--question-box-witdh) * 5 + var(--grid-gap) * 4);
+  margin: auto auto 5rem auto;
 }

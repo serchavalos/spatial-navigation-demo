@@ -8,7 +8,8 @@ import {
 } from "react";
 import uniqid from "uniqid";
 
-import { NavNodesContext } from "./nav-engine";
+import { NavEngineContext } from "./nav-engine";
+import { NavNodeContext } from "./nav-node-context";
 
 type FocusRef = {
   setRef: (node: HTMLElement | null) => void;
@@ -16,7 +17,7 @@ type FocusRef = {
 };
 
 function useNodeFocus(nodeId: string): boolean {
-  const navEngine = useContext(NavNodesContext);
+  const navEngine = useContext(NavEngineContext);
   const [isFocused, setFocused] = useState<boolean>(false);
 
   useEffect(() => {
@@ -48,25 +49,33 @@ function useNodeFocus(nodeId: string): boolean {
   return isFocused;
 }
 
-export function useFocusRef(): FocusRef {
+export function useRegisterNode() {
   const ref = useRef<HTMLElement | null>(null);
   const nodeId = useMemo(() => uniqid(), []);
-  const navEngine = useContext(NavNodesContext);
+  const navEngine = useContext(NavEngineContext);
+  const parentId = useContext(NavNodeContext);
 
   const setRef = useCallback((node: HTMLElement | null): void => {
     ref.current = node;
   }, []);
 
   useEffect(() => {
-    if (ref?.current) {
-      navEngine?.registerNode({ id: nodeId, ref: ref?.current });
-    }
+    navEngine?.registerNode({
+      id: nodeId,
+      ref: ref?.current ?? undefined,
+      parentId
+    });
 
     return (): void => {
       navEngine?.unregisterNode(nodeId);
     };
   }, [ref, navEngine, nodeId]);
 
+  return { nodeId, setRef };
+}
+
+export function useFocusRef(): FocusRef {
+  const { setRef, nodeId } = useRegisterNode();
   const isFocused = useNodeFocus(nodeId);
 
   return { setRef, isFocused };
