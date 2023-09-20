@@ -87,7 +87,7 @@ export class NavEngine {
       return false;
     }
 
-    if (parentElement?.parentId !== targetNode?.parentId) {
+    if (parentElement?.parentId === targetNode?.parentId) {
       return false;
     }
 
@@ -96,7 +96,8 @@ export class NavEngine {
 
   handleNavigation(direction: Direction): void {
     const targetElement = this.findNextTargetElement(direction);
-    const targetNode = this.nodes.find((node) => node.ref === targetElement);
+    const targetNode =
+      targetElement && this.nodes.find((node) => node.ref === targetElement);
 
     // eslint-disable-next-line
     console.log(
