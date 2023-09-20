@@ -15,7 +15,7 @@ export function Welcome(): JSX.Element {
         ))}
       </section>
       <p>
-        <NavLink to="/">Level up!</NavLink>
+        <NavLink to="/levelup">Level up!</NavLink>
       </p>
     </Layout>
   );

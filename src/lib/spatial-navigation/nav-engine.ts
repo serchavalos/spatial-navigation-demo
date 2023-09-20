@@ -2,7 +2,7 @@ import { createContext } from "react";
 import { fallbackRect } from "./constants";
 import { Direction, directionalFilters } from "./directions";
 import { findElementInDirection } from "./spatial";
-import { NavNode } from "./types";
+import { CYCLE_HORIZONTAL, CYCLE_VERTICAL, NavNode } from "./types";
 
 type Subscriber = VoidFunction;
 
@@ -48,7 +48,7 @@ export class NavEngine {
     this.subscriptions.forEach((subscriber) => subscriber());
   }
 
-  handleNavigation(direction: Direction): void {
+  private findNextTargetElement(direction: Direction): HTMLElement | undefined {
     const directionalFilter = directionalFilters[direction];
     const fromReact =
       this.selectedNode?.ref?.getBoundingClientRect() ?? fallbackRect;
@@ -62,14 +62,51 @@ export class NavEngine {
         directionalFilter.startsAfterFromEnds(fromReact, node.rect)
       );
 
-    const foundElement = findElementInDirection(
-      fromReact,
-      nodesRefsWithRects,
-      direction
+    return findElementInDirection(fromReact, nodesRefsWithRects, direction);
+  }
+
+  /**
+   * It will cycle if:
+   * 1. if the direction matches the type of cycling
+   * 2. The parent has the attribute cycle (obviously)
+   * 3. the current selected element and the next cycle element has different parent and are not the same
+   */
+  private shouldCycleNavigation(
+    direction: Direction,
+    targetNode?: NavNode
+  ): boolean {
+    const parentElement = this.nodes.find(
+      ({ id }) => id === this.selectedNode?.parentId
     );
 
-    if (foundElement) {
-      this.selectedNode = this.nodes.find((leaf) => leaf.ref === foundElement);
+    const axis =
+      direction === Direction.UP || direction === Direction.DOWN
+        ? CYCLE_VERTICAL
+        : CYCLE_HORIZONTAL;
+    if (!parentElement?.attr?.cycle || parentElement.attr.cycle !== axis) {
+      return false;
+    }
+
+    if (parentElement?.parentId !== targetNode?.parentId) {
+      return false;
+    }
+
+    return true;
+  }
+
+  handleNavigation(direction: Direction): void {
+    const targetElement = this.findNextTargetElement(direction);
+    const targetNode = this.nodes.find((node) => node.ref === targetElement);
+
+    // eslint-disable-next-line
+    console.log(
+      `CYCLE? ${
+        this.shouldCycleNavigation(direction, targetNode) ? "yes!" : "no"
+      }`
+    );
+
+    if (targetNode) {
+      this.selectedNode = targetNode;
       this.notifyAllSubscribers();
     }
   }

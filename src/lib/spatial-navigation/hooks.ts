@@ -10,6 +10,7 @@ import uniqid from "uniqid";
 
 import { NavEngineContext } from "./nav-engine";
 import { NavNodeContext } from "./nav-node-context";
+import { NavNodeAttributes } from "./types";
 
 type FocusRef = {
   setRef: (node: HTMLElement | null) => void;
@@ -49,7 +50,7 @@ function useNodeFocus(nodeId: string): boolean {
   return isFocused;
 }
 
-export function useRegisterNode() {
+export function useRegisterNode(attr?: NavNodeAttributes) {
   const ref = useRef<HTMLElement | null>(null);
   const nodeId = useMemo(() => uniqid(), []);
   const navEngine = useContext(NavEngineContext);
@@ -63,7 +64,8 @@ export function useRegisterNode() {
     navEngine?.registerNode({
       id: nodeId,
       ref: ref?.current ?? undefined,
-      parentId
+      parentId,
+      attr
     });
 
     return (): void => {

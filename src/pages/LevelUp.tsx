@@ -14,7 +14,7 @@ export function LevelUp(): JSX.Element {
         {boxes.map((_, index) => (
           <QuestionBox key={`question-box-${index}`} />
         ))}
-        <NavContainer>
+        <NavContainer cycle="horizontal">
           {boxes.map((_, index) => (
             <QuestionBox key={`question-box-${index}`} />
           ))}
