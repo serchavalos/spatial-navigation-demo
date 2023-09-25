@@ -4,57 +4,15 @@
 <head>
   <title>Spatial Navigation Demo</title>
   <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-  <style>
-    #tv-remote {
-      position: absolute;
-      top: 10%;
-      left: 950px;
-      height: 80%;
-      z-index: 1000;
-      transition: opacity 0.5s;
-    }
-
-    #tv-remote button {
-      display: block;
-      position: absolute;
-      border: 1px solid transparent;
-      border-radius: 30%;
-      background-color: transparent;
-      outline: none;
-    }
-
-    #tv-remote button#select {
-      border-radius: 50%;
-    }
-
-    #tv-remote button:focus {
-      background-color: rgba(182, 24, 169, 0.2);
-    }
-
-    #tv-remote button:hover {
-      background-color: rgba(203, 213, 109, 0.1);
-    }
-
-    #tv-remote button:active {
-      outline: none;
-      background-color: rgba(8, 89, 35, 0.6);
-    }
-  </style>
 </head>
 
 <body>
   <noscript>
     You need to enable JavaScript to run this app.
   </noscript>
-  <main id="root"></main>
+  <div id="root"></div>
 
   <div id="tv-remote">
-    <!-- 
-        Following button actions exists 
-        -------------------------------
-        'play','pause','stop','togglePlay','fastForward','rewind','next','previous', 'restart',
-        'left', 'right', 'up', 'down', 'back', 'select', 'saveTrack', 'exit'
-      -->
     <img src="/images/tv-remote.png" with="100%" height="100%" />
     <button id="back" style="top: 11%; left: 15%; width: 33%; height: 5.5%;"></button>
     <button id="exit" style="top: 11%; left: 54%; width: 33%; height: 5.5%;"></button>
@@ -74,8 +32,6 @@
   </div>
 
   <script type="text/javascript">
-    let repeatTimer;
-
     function addRemoteClickHandler() {
       const remote = document.getElementById('tv-remote');
       remote.addEventListener('mousedown', onMouseEvent);

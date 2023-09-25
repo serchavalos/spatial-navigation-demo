@@ -1,0 +1,16 @@
+.level-up-labels {
+  text-align: right;
+}
+
+.level-up-grid {
+  --grid-gap: 15px;
+
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  grid-template-columns: 1fr repeat(4, var(--question-box-witdh)) 1fr;
+  grid-row: span 2;
+  grid-gap: var(--grid-gap);
+  padding-bottom: 5rem;
+}

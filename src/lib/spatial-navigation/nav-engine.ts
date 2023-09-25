@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { fallbackRect } from "./constants";
-import { Direction, directionalFilters } from "./directions";
+import { Direction, cycleRects, directionalFilters } from "./directions";
 import { findElementInDirection } from "./spatial";
 import { CYCLE_HORIZONTAL, CYCLE_VERTICAL, NavNode } from "./types";
 
@@ -73,21 +73,13 @@ export class NavEngine {
    */
   private shouldCycleNavigation(
     direction: Direction,
-    targetNode?: NavNode
+    parentNode: NavNode
   ): boolean {
-    const parentElement = this.nodes.find(
-      ({ id }) => id === this.selectedNode?.parentId
-    );
-
     const axis =
       direction === Direction.UP || direction === Direction.DOWN
         ? CYCLE_VERTICAL
         : CYCLE_HORIZONTAL;
-    if (!parentElement?.attr?.cycle || parentElement.attr.cycle !== axis) {
-      return false;
-    }
-
-    if (parentElement?.parentId === targetNode?.parentId) {
+    if (!parentNode?.attr?.cycle || parentNode.attr.cycle !== axis) {
       return false;
     }
 
@@ -96,15 +88,34 @@ export class NavEngine {
 
   handleNavigation(direction: Direction): void {
     const targetElement = this.findNextTargetElement(direction);
-    const targetNode =
+    let targetNode =
       targetElement && this.nodes.find((node) => node.ref === targetElement);
-
-    // eslint-disable-next-line
-    console.log(
-      `CYCLE? ${
-        this.shouldCycleNavigation(direction, targetNode) ? "yes!" : "no"
-      }`
+    const parentNode = this.nodes.find(
+      ({ id }) => id === this.selectedNode?.parentId
     );
+
+    if (parentNode && this.shouldCycleNavigation(direction, parentNode)) {
+      const childNodesRects = this.nodes
+        .filter((node) => node.ref && node.parentId === parentNode.id)
+        .map((node) => ({
+          rect: node.ref?.getBoundingClientRect(),
+          ref: node.ref
+        }));
+      const cycleTargetElement = findElementInDirection(
+        cycleRects[direction],
+        // TODO: Fix this TS warning
+        // eslint-disable-next-line
+        // @ts-ignore
+        childNodesRects,
+        direction
+      );
+      const cycleTargetNode = this.nodes.find(
+        (node) => node.ref === cycleTargetElement
+      );
+      if (targetNode?.parentId !== cycleTargetNode?.parentId) {
+        targetNode = cycleTargetNode;
+      }
+    }
 
     if (targetNode) {
       this.selectedNode = targetNode;

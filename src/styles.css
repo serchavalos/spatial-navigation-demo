@@ -2,25 +2,69 @@
 
 :root {
   --question-box-witdh: 100px;
-  --main-height: 100vh;
+  --main-height: 80vh;
   --main-width: 1000px;
   --h1-font-size: 48px;
   --h1-text-shadow: 6px 2px 1px black;
 }
 
+html,
 body,
-html {
-  margin: 0 0;
+h1,
+h2 {
+  margin: 0;
 }
 
 body {
-  margin: 0;
   font-family: "Press Start 2P", cursive;
   background-color: rgb(40, 40, 40);
-  overflow: hidden;
   height: 100vh;
   width: 100vw;
   display: flex;
+}
+
+#tv-remote {
+  position: absolute;
+  top: 10%;
+  left: 950px;
+  height: 80%;
+  z-index: 1000;
+  transition: opacity 0.5s;
+}
+
+#tv-remote button {
+  display: block;
+  position: absolute;
+  border: 1px solid transparent;
+  border-radius: 30%;
+  background-color: transparent;
+  outline: none;
+}
+
+#tv-remote button#select {
+  border-radius: 50%;
+}
+
+#tv-remote button:focus {
+  background-color: rgba(182, 24, 169, 0.2);
+}
+
+#tv-remote button:hover {
+  background-color: rgba(203, 213, 109, 0.1);
+}
+
+#tv-remote button:active {
+  outline: none;
+  background-color: rgba(8, 89, 35, 0.6);
+}
+
+#root {
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 2px solid white;
+  height: var(--main-height);
+  width: var(--main-width);
+  margin: auto 0;
 }
 
 a {

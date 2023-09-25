@@ -49,6 +49,61 @@ export const directionalFilters: Record<Direction, DirectionalFilter> = {
   }
 };
 
+export const topEdgeRect: DOMRect = {
+  top: 0,
+  left: 0,
+  right: innerWidth,
+  bottom: 0,
+  width: innerWidth,
+  height: 0,
+  y: 0,
+  x: 0,
+  toJSON: () => void 0
+};
+
+export const bottomEdgeRect: DOMRect = {
+  top: innerHeight,
+  left: 0,
+  right: innerWidth,
+  bottom: innerHeight,
+  width: innerWidth,
+  height: 0,
+  y: innerHeight,
+  x: 0,
+  toJSON: () => void 0
+};
+
+export const leftEdgeRect: DOMRect = {
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: innerHeight,
+  width: 0,
+  height: innerHeight,
+  y: 0,
+  x: 0,
+  toJSON: () => void 0
+};
+
+export const rightEdgeRect: DOMRect = {
+  top: 0,
+  left: innerWidth,
+  right: innerWidth,
+  bottom: innerHeight,
+  width: 0,
+  height: innerHeight,
+  y: 0,
+  x: innerWidth,
+  toJSON: () => void 0
+};
+
+export const cycleRects: Record<Direction, DOMRect> = {
+  [Direction.DOWN]: topEdgeRect,
+  [Direction.UP]: bottomEdgeRect,
+  [Direction.LEFT]: rightEdgeRect,
+  [Direction.RIGHT]: leftEdgeRect
+};
+
 export function isDirectional({ code }: KeyboardEvent): boolean {
   return DIRECTIONAL_EVENTS.includes(code);
 }

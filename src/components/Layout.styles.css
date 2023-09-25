@@ -1,11 +1,15 @@
 main {
-  background-image: url("/public/images/background.png");
-  background-repeat: no-repeat;
-  background-position: center;
+  background: url("/public/images/background.png") no-repeat;
+  background-position: top;
   background-size: cover;
-  height: var(--main-height);
-  width: var(--main-width);
   text-align: center;
+  height: 100%;
+  z-index: 1;
+  position: relative;
+}
+
+main.level-up {
+  background-image: url("/public/images/background-level-up.png");
 }
 
 h1 {
@@ -13,7 +17,11 @@ h1 {
   color: white;
   text-shadow: var(--h1-text-shadow);
   font-size: var(--h1-font-size);
-  margin: 112px 0 35px 0;
+  padding: 112px 0 35px 0;
+}
+
+main.level-up h1 {
+  color: #f3e60d;
 }
 
 p {
