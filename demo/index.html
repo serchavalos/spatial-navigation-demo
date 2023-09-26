@@ -3,67 +3,8 @@
 
 <head>
   <title>Spatial Navigation Demo</title>
-  <link rel="shortcut icon" href="/favicon.ico">
-  <style>
-    body,
-    html {
-      margin: 0 0
-    }
-
-    body {
-      background-color: #282828;
-      overflow: hidden
-    }
-
-    #root {
-      width: 1000px
-    }
-
-    #tv-app-frame {
-      transform-origin: 0 0;
-      border: 0
-    }
-
-    #tv-app-frame:target {
-      border: 1px solid #fff
-    }
-
-    #tv-remote {
-      position: absolute;
-      top: 10%;
-      left: 950px;
-      height: 80%;
-      z-index: 1000;
-      transition: opacity .5s
-    }
-
-    #tv-remote button {
-      display: block;
-      position: absolute;
-      border: 1px solid transparent;
-      border-radius: 30%;
-      background-color: transparent;
-      outline: 0
-    }
-
-    #tv-remote button#select {
-      border-radius: 50%
-    }
-
-    #tv-remote button:focus {
-      background-color: rgba(182, 24, 169, .2)
-    }
-
-    #tv-remote button:hover {
-      background-color: rgba(203, 213, 109, .1)
-    }
-
-    #tv-remote button:active {
-      outline: 0;
-      background-color: rgba(8, 89, 35, .6)
-    }
-  </style>
-  <link href="/static/css/main.ce600c67.css" rel="stylesheet">
+  <link rel="icon" href="/images/favicon.ico">
+  <link href="/static/css/main.5aec074d.css" rel="stylesheet">
 </head>
 
 <body><noscript>You need to enable JavaScript to run this app.</noscript>
@@ -90,7 +31,9 @@
       "1": "main.2c93959d.js",
       "2": "main.7961fb62.js",
       "3": "main.d3634209.js",
-      "4": "main.1960289c.js"
+      "4": "main.1960289c.js",
+      "5": "main.705bd82f.js",
+      "6": "main.4b9a614c.js",
     }
     const params = (new URL(document.location)).searchParams;
     let step = params.get("step") ?? '0';

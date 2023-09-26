@@ -39,7 +39,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "demo": "http-server demo"
+    "demo": "http-server demo --proxy http://localhost:8080?"
   },
   "browserslist": [
     ">0.2%",
