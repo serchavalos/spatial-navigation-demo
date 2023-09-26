@@ -15,13 +15,9 @@ main.level-up {
 h1 {
   text-align: inherit;
   color: white;
-  text-shadow: var(--h1-text-shadow);
+  text-shadow: 6px 2px 1px black;
   font-size: var(--h1-font-size);
   padding: 112px 0 35px 0;
-}
-
-main.level-up h1 {
-  color: #f3e60d;
 }
 
 p {

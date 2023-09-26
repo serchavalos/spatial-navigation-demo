@@ -15,7 +15,11 @@ export function Welcome(): JSX.Element {
         ))}
       </section>
       <p>
-        <NavLink to="/levelup">Level up!</NavLink>
+        <NavLink to="/levelup">
+          <img src="/images/fire.png" />
+          Level up
+          <img src="/images/fire.png" />
+        </NavLink>
       </p>
     </Layout>
   );

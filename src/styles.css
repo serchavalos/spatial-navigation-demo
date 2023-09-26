@@ -2,10 +2,9 @@
 
 :root {
   --question-box-witdh: 100px;
-  --main-height: 80vh;
+  --main-height: 760px;
   --main-width: 1000px;
   --h1-font-size: 48px;
-  --h1-text-shadow: 6px 2px 1px black;
 }
 
 html,
@@ -25,9 +24,9 @@ body {
 
 #tv-remote {
   position: absolute;
-  top: 10%;
+  top: 140px;
   left: 950px;
-  height: 80%;
+  height: 635px;
   z-index: 1000;
   transition: opacity 0.5s;
 }
@@ -64,15 +63,5 @@ body {
   border: 2px solid white;
   height: var(--main-height);
   width: var(--main-width);
-  margin: auto 0;
-}
-
-a {
-  filter: grayscale(1);
-}
-
-a:hover,
-a.hover {
-  filter: unset;
-  transform: translateY(-10px);
+  margin: 1rem;
 }

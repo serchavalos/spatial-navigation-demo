@@ -2,6 +2,13 @@
   display: flex;
   transition-property: transform;
   transition-duration: 0.2s;
+  filter: grayscale(1);
+
+  &:hover,
+  &.hover {
+    filter: unset;
+    transform: translateY(-10px);
+  }
 }
 
 .question-box__image {

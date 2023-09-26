@@ -1,3 +1,13 @@
+main.level-up h1 {
+  color: #f3cc0b;
+  text-shadow: 6px 2px 1px #e41d00;
+}
+
+main.level-up h2 {
+  color: #f3cc0b;
+  text-shadow: none;
+}
+
 .level-up-labels {
   text-align: right;
 }
