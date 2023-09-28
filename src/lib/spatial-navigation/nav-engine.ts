@@ -109,17 +109,16 @@ export class NavEngine {
       this.shouldCycleNavigation(direction, parentNode)
     ) {
       const childNodesRects = this.nodes
-        .filter(isNavNode)
-        .filter((node) => node.ref && node.parentId === parentNode.id)
-        .map((node) => ({
-          rect: node.ref?.getBoundingClientRect(),
-          ref: node.ref
+        .filter(
+          (n: NavNode): n is Omit<NavNode, "ref"> & { ref: HTMLElement } =>
+            isNavNode(n) && Boolean(n.ref) && n.parentId === parentNode.id
+        )
+        .map((n) => ({
+          rect: n.ref.getBoundingClientRect(),
+          ref: n.ref
         }));
       const cycleTargetElement = findElementInDirection(
         cycleRects[direction],
-        // TODO: Fix this TS warning
-        // eslint-disable-next-line
-        // @ts-ignore
         childNodesRects,
         direction
       );
