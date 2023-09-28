@@ -1,12 +1,12 @@
 import React, { PropsWithChildren } from "react";
-import { useRegisterNode } from "../hooks";
+import { useRegisterNavContainer } from "../hooks";
 import { NavNodeContext } from "../nav-node-context";
-import { NavNodeAttributes } from "../types";
+import { NavContainerAttributes } from "../types";
 
-type Props = PropsWithChildren<NavNodeAttributes>;
+type Props = PropsWithChildren<NavContainerAttributes>;
 
 export function NavContainer({ cycle, children }: Props) {
-  const { nodeId } = useRegisterNode({ cycle });
+  const { nodeId } = useRegisterNavContainer({ cycle });
 
   return (
     <NavNodeContext.Provider value={nodeId}>{children}</NavNodeContext.Provider>

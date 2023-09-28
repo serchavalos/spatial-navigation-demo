@@ -10,7 +10,7 @@ import uniqid from "uniqid";
 
 import { NavEngineContext } from "./nav-engine";
 import { NavNodeContext } from "./nav-node-context";
-import { NavNodeAttributes } from "./types";
+import { NavContainerAttributes } from "./types";
 
 type FocusRef = {
   setRef: (node: HTMLElement | null) => void;
@@ -50,11 +50,32 @@ function useNodeFocus(nodeId: string): boolean {
   return isFocused;
 }
 
-export function useRegisterNode(attr?: NavNodeAttributes) {
-  const ref = useRef<HTMLElement | null>(null);
+export function useRegisterNavContainer(attr?: NavContainerAttributes) {
   const nodeId = useMemo(() => uniqid(), []);
   const navEngine = useContext(NavEngineContext);
   const parentId = useContext(NavNodeContext);
+
+  useEffect(() => {
+    navEngine?.registerNode({
+      id: nodeId,
+      parentId,
+      attr
+    });
+
+    return (): void => {
+      navEngine?.unregisterNode(nodeId);
+    };
+  }, [navEngine, nodeId]);
+
+  return { nodeId };
+}
+
+export function useFocusRef(): FocusRef {
+  const nodeId = useMemo(() => uniqid(), []);
+  const ref = useRef<HTMLElement | null>(null);
+  const navEngine = useContext(NavEngineContext);
+  const parentId = useContext(NavNodeContext);
+  const isFocused = useNodeFocus(nodeId);
 
   const setRef = useCallback((node: HTMLElement | null): void => {
     ref.current = node;
@@ -64,21 +85,13 @@ export function useRegisterNode(attr?: NavNodeAttributes) {
     navEngine?.registerNode({
       id: nodeId,
       ref: ref?.current ?? undefined,
-      parentId,
-      attr
+      parentId
     });
 
     return (): void => {
       navEngine?.unregisterNode(nodeId);
     };
   }, [ref, navEngine, nodeId]);
-
-  return { nodeId, setRef };
-}
-
-export function useFocusRef(): FocusRef {
-  const { setRef, nodeId } = useRegisterNode();
-  const isFocused = useNodeFocus(nodeId);
 
   return { setRef, isFocused };
 }

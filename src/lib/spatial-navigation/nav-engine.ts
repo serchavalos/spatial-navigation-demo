@@ -2,19 +2,27 @@ import { createContext } from "react";
 import { fallbackRect } from "./constants";
 import { Direction, cycleRects, directionalFilters } from "./directions";
 import { findElementInDirection } from "./spatial";
-import { CYCLE_HORIZONTAL, CYCLE_VERTICAL, NavNode } from "./types";
+import {
+  CYCLE_HORIZONTAL,
+  CYCLE_VERTICAL,
+  NavContainer,
+  NavNode
+} from "./types";
 
 type Subscriber = VoidFunction;
 
-// REVIEW: How to do this with TS (import `ref` and make it required)
-type NodeWithRef = Omit<NavNode, "ref"> & { ref: HTMLElement };
+function isNavNode(n: NavNode | NavContainer): n is NavNode {
+  return (n as NavNode).ref !== undefined;
+}
 
-function navNodesWithRef(n: NavNode | NodeWithRef): n is NodeWithRef {
-  return n.ref !== undefined;
+function isNavNodeRefDefined(
+  n: NavNode
+): n is Omit<NavNode, "ref"> & { ref: HTMLElement } {
+  return Boolean(n.ref);
 }
 
 export class NavEngine {
-  private nodes: NavNode[];
+  private nodes: Array<NavNode | NavContainer>;
   private selectedNode: NavNode | undefined;
   private subscriptions: Subscriber[];
 
@@ -23,7 +31,7 @@ export class NavEngine {
     this.subscriptions = [];
   }
 
-  registerNode(node: NavNode): void {
+  registerNode(node: NavNode | NavContainer): void {
     this.nodes.push(node);
   }
 
@@ -53,7 +61,7 @@ export class NavEngine {
     const fromReact =
       this.selectedNode?.ref?.getBoundingClientRect() ?? fallbackRect;
     const nodesRefsWithRects = this.nodes
-      .filter(navNodesWithRef)
+      .filter(isNavNodeRefDefined)
       .map((node) => ({
         ref: node.ref,
         rect: node.ref.getBoundingClientRect()
@@ -73,7 +81,7 @@ export class NavEngine {
    */
   private shouldCycleNavigation(
     direction: Direction,
-    parentNode: NavNode
+    parentNode: NavContainer
   ): boolean {
     const axis =
       direction === Direction.UP || direction === Direction.DOWN
@@ -89,13 +97,19 @@ export class NavEngine {
   handleNavigation(direction: Direction): void {
     const targetElement = this.findNextTargetElement(direction);
     let targetNode =
-      targetElement && this.nodes.find((node) => node.ref === targetElement);
+      targetElement &&
+      this.nodes.filter(isNavNode).find((node) => node.ref === targetElement);
     const parentNode = this.nodes.find(
       ({ id }) => id === this.selectedNode?.parentId
     );
 
-    if (parentNode && this.shouldCycleNavigation(direction, parentNode)) {
+    if (
+      parentNode &&
+      !isNavNode(parentNode) &&
+      this.shouldCycleNavigation(direction, parentNode)
+    ) {
       const childNodesRects = this.nodes
+        .filter(isNavNode)
         .filter((node) => node.ref && node.parentId === parentNode.id)
         .map((node) => ({
           rect: node.ref?.getBoundingClientRect(),
@@ -109,9 +123,9 @@ export class NavEngine {
         childNodesRects,
         direction
       );
-      const cycleTargetNode = this.nodes.find(
-        (node) => node.ref === cycleTargetElement
-      );
+      const cycleTargetNode = this.nodes
+        .filter(isNavNode)
+        .find((node) => node.ref === cycleTargetElement);
       if (targetNode?.parentId !== cycleTargetNode?.parentId) {
         targetNode = cycleTargetNode;
       }
