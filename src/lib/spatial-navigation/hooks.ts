@@ -9,7 +9,7 @@ import {
 import uniqid from "uniqid";
 
 import { NavEngineContext } from "./nav-engine";
-import { ParentIdContext } from "./parent-id-context";
+import { AncestorIdContext } from "./ancestor-id-context";
 import { NavContainerAttributes } from "./types";
 
 type FocusRef = {
@@ -53,12 +53,12 @@ function useNodeFocus(nodeId: string): boolean {
 export function useRegisterNavContainer(attr?: NavContainerAttributes) {
   const nodeId = useMemo(() => uniqid(), []);
   const navEngine = useContext(NavEngineContext);
-  const parentId = useContext(ParentIdContext);
+  const ancestorId = useContext(AncestorIdContext);
 
   useEffect(() => {
     navEngine?.registerNode({
       id: nodeId,
-      parentId,
+      ancestorId,
       attr
     });
 
@@ -74,7 +74,7 @@ export function useFocusRef(): FocusRef {
   const nodeId = useMemo(() => uniqid(), []);
   const ref = useRef<HTMLElement | null>(null);
   const navEngine = useContext(NavEngineContext);
-  const parentId = useContext(ParentIdContext);
+  const ancestorId = useContext(AncestorIdContext);
   const isFocused = useNodeFocus(nodeId);
 
   const setRef = useCallback((node: HTMLElement | null): void => {
@@ -85,7 +85,7 @@ export function useFocusRef(): FocusRef {
     navEngine?.registerNode({
       id: nodeId,
       ref: ref?.current ?? undefined,
-      parentId
+      ancestorId
     });
 
     return (): void => {

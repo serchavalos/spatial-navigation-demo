@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from "react";
 import { NavEngine, NavEngineContext } from "../nav-engine";
-import { ParentIdContext } from "../parent-id-context";
+import { AncestorIdContext } from "../ancestor-id-context";
 
 type Props = PropsWithChildren<{
   navEngine: NavEngine;
@@ -9,9 +9,9 @@ type Props = PropsWithChildren<{
 export function SpatialNavigationProvider({ navEngine, children }: Props) {
   return (
     <NavEngineContext.Provider value={navEngine}>
-      <ParentIdContext.Provider value="root">
+      <AncestorIdContext.Provider value="root">
         {children}
-      </ParentIdContext.Provider>
+      </AncestorIdContext.Provider>
     </NavEngineContext.Provider>
   );
 }

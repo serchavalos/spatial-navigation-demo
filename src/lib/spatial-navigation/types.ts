@@ -7,12 +7,12 @@ export type NavContainerAttributes = {
 export type NavNode = {
   id: string;
   ref?: HTMLElement;
-  parentId: string;
+  ancestorId: string;
 };
 
 export type NavContainer = {
   id: string;
-  parentId: string;
+  ancestorId: string;
   attr: NavContainerAttributes;
 };
 

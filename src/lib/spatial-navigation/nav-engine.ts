@@ -76,18 +76,18 @@ export class NavEngine {
   /**
    * It will cycle if:
    * 1. if the direction matches the type of cycling
-   * 2. The parent has the attribute cycle (obviously)
-   * 3. the current selected element and the next cycle element has different parent and are not the same
+   * 2. The ancestor has the attribute cycle (obviously)
+   * 3. the current selected element and the next cycle element has different ancestor and are not the same
    */
   private shouldCycleNavigation(
     direction: Direction,
-    parentNode: NavContainer
+    ancestorNode: NavContainer
   ): boolean {
     const axis =
       direction === Direction.UP || direction === Direction.DOWN
         ? CYCLE_VERTICAL
         : CYCLE_HORIZONTAL;
-    if (!parentNode?.attr?.cycle || parentNode.attr.cycle !== axis) {
+    if (!ancestorNode?.attr?.cycle || ancestorNode.attr.cycle !== axis) {
       return false;
     }
 
@@ -99,19 +99,19 @@ export class NavEngine {
     let targetNode =
       targetElement &&
       this.nodes.filter(isNavNode).find((node) => node.ref === targetElement);
-    const parentNode = this.nodes.find(
-      ({ id }) => id === this.selectedNode?.parentId
+    const ancestorNode = this.nodes.find(
+      ({ id }) => id === this.selectedNode?.ancestorId
     );
 
     if (
-      parentNode &&
-      !isNavNode(parentNode) &&
-      this.shouldCycleNavigation(direction, parentNode)
+      ancestorNode &&
+      !isNavNode(ancestorNode) &&
+      this.shouldCycleNavigation(direction, ancestorNode)
     ) {
       const childNodesRects = this.nodes
         .filter(
           (n: NavNode): n is Omit<NavNode, "ref"> & { ref: HTMLElement } =>
-            isNavNode(n) && Boolean(n.ref) && n.parentId === parentNode.id
+            isNavNode(n) && Boolean(n.ref) && n.ancestorId === ancestorNode.id
         )
         .map((n) => ({
           rect: n.ref.getBoundingClientRect(),
@@ -125,7 +125,7 @@ export class NavEngine {
       const cycleTargetNode = this.nodes
         .filter(isNavNode)
         .find((node) => node.ref === cycleTargetElement);
-      if (targetNode?.parentId !== cycleTargetNode?.parentId) {
+      if (targetNode?.ancestorId !== cycleTargetNode?.ancestorId) {
         targetNode = cycleTargetNode;
       }
     }
